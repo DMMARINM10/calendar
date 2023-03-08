@@ -22,10 +22,10 @@ class Calender extends Component {
             dates: [],
             cellWith: 50,
             popup: {
-                show:false,
-                booking:null
+                show: false,
+                booking: null
             },
-            filterStatus:"rooms",
+            filterStatus: "rooms",
             viewStartDate: this.props.viewStartDate ? this.props.viewStartDate : null
         }
         this.actionMoveBooking = this.actionMoveBooking.bind(this);
@@ -43,7 +43,7 @@ class Calender extends Component {
      * Fill up dates in component state
      **/
     fillupDates() {
-        
+
         let day = new Date();
         if (this.state.viewStartDate != null) {
             day = new Date(this.state.viewStartDate);
@@ -68,20 +68,63 @@ class Calender extends Component {
 
             // @todo move it to common helper
             Date.locale = {
-                en: {
-                    month_names: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    month_names_short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                month: {
+                    en: {
+                        month_names: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        month_names_short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                    },
+                    es: {
+                        month_names: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                        month_names_short: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+                    }
+                },
+                week: {
+                    es: {
+                        day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+                        day_names_short: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']
+                    }
                 }
             };
 
             return <th key={date.getTime()}>
-                <span className="r-calendar-head-date">{date.getDate()}</span><div className="r-calendar-head-month">{Date.locale.en.month_names_short[date.getMonth()]}</div>
-            </th>;  
+                <div style={{
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    padding: '8px 0px 3px 0px',
+                    width: '90px'
+                }}>{date.getDate()} {Date.locale.month.es.month_names_short[date.getMonth()]}</div>
+                <div style={{
+                    padding: '3px',
+                    fontSize: '12px',
+                    color: '#88909C'
+                }}>{Date.locale.week.es.day_names_short[date.getDay()]}</div>
+                <div style={{
+                    padding: '3px 0px 8px 0px',
+                    display: 'flex',
+                    justifyContent: 'center'
+                }}>
+                    <div style={{
+                        backgroundColor: '#F3F0F5',
+                        borderRadius: '10px',
+                        fontSize: '12px',
+                        width: 'fit-content',
+                        padding: '3px 10px'
+                    }}>100%</div>
+                </div>
+            </th>;
         })
 
         return <thead>
             <tr>
-                <th><div className="text-right">ROOMS</div></th>
+                <th style={{
+                    backgroundColor: 'white',
+                }}><div className="text-right" style={{
+                    fontWeight: '600',
+                    fontSize: '21px',
+                    color: '#282C38',
+                    padding: '5px',
+                    height: '100%',
+                }}>Acomodaciones</div></th>
                 {datesHtml}
             </tr>
         </thead>;
@@ -127,7 +170,7 @@ class Calender extends Component {
                 return oldState;
             })
         }
-        
+
     }
 
     /**
@@ -135,7 +178,7 @@ class Calender extends Component {
      * @param {*} singleBooking 
      */
     actionCreateBooking(singleBooking) {
-            
+
         if (BookingHelper.canExistBooking(singleBooking, singleBooking.room_id, singleBooking.from_date, singleBooking.to_date, this.state.bookings)) {
             this.setState(oldState => {
                 oldState.bookings.push(singleBooking);
@@ -181,17 +224,17 @@ class Calender extends Component {
 
         let head = this.renderHeaderDate();
         let body = this.renderTableBody();
-    
+
         // create context, to make data available to other child components
-		const contextValue = {
+        const contextValue = {
             data: this.state,
-            actionMoveBooking : this.actionMoveBooking,
-            actionCanExistBooking : this.actionCanExistBooking,
+            actionMoveBooking: this.actionMoveBooking,
+            actionCanExistBooking: this.actionCanExistBooking,
             actionOpenPopup: this.actionOpenPopup,
             actionClosePopup: this.actionClosePopup,
             actionCreateBooking: this.actionCreateBooking,
         };
-        
+
         // show hide booking popup
         let bookingPopup = this.state.popup.show ? <BookingPopup data={this.state.popup}></BookingPopup> : null;
 
@@ -205,7 +248,7 @@ class Calender extends Component {
                 <div className="r-calendar">
                     <DndProvider backend={HTML5Backend}>
                         <ScrollContainer className="scroll-container" ignoreElements="td">
-                            <table className="table table-striped r-calendar-main-table">
+                            <table className="r-calendar-main-table">
                                 {head}
                                 {body}
                             </table>

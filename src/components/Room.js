@@ -22,11 +22,47 @@ function Room(props) {
             return <Booking book={singleBook} key={singleBook.id} />;
         });
 
-        return <RoomDate key={index} day={day} room={props.room} cellWidth={props.cellWidth}>{bookinksTodayJsx}</RoomDate>
+        if(bookinksTodayJsx.length === 0) bookinksTodayJsx = <div style={{
+            borderTop: '1px solid #B2BBC9',
+            borderLeft: '1px solid #B2BBC9',
+            borderBottom: '1px solid #B2BBC9',
+            height: '100%',
+            fontSize: '14px',
+            fontWeight: '600',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center'
+        }}>
+            <div>$100.000</div>
+            <div style={{
+                fontSize: '12px',
+                color: '#88909C',
+                position: 'relative'
+            }}>3</div>
+        </div>
+
+        return <RoomDate key={index} day={day} room={props.room} cellWidth={props.cellWidth} i={index}>{bookinksTodayJsx}</RoomDate>
     })
 
     return (<tr key={props.room.id}>
-        <td><div>{props.room.title}</div></td>
+        <td>
+            <div style={{
+                backgroundColor: 'white',
+                border: '1px solid #B2BBC9',
+                borderRight: '0px',
+                borderRadius: '12px 0 0 12px',
+                height: '100%',
+                padding: '15px'
+            }}>
+                <h6 style={{
+                    fontSize: '18px',
+                    fontWeight: 'bold'
+                }}>{props.room.title}</h6>
+                <span style={{
+                    fontSize: '12px'
+                }}>{props.room.category}</span>
+            </div>
+        </td>
         {daysTd}
     </tr>);
 
