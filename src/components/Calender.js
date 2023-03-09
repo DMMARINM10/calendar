@@ -20,7 +20,7 @@ class Calender extends Component {
             rooms: this.props.rooms,
             bookings: this.props.bookings,
             dates: [],
-            cellWith: 50,
+            cellWidth: 50,
             popup: {
                 show: false,
                 booking: null
@@ -136,7 +136,7 @@ class Calender extends Component {
      * @param {} room 
      */
     renderRooms(room) {
-        return <Room key={room.id} room={room} bookings={this.state.bookings} dates={this.state.dates} cellWith={this.state.cellWith}></Room>;
+        return <Room key={room.id} room={room} bookings={this.state.bookings} dates={this.state.dates} cellWidth={this.state.cellWidth}></Room>;
     }
 
     /**

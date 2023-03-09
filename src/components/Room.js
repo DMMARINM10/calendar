@@ -1,6 +1,7 @@
 import React from 'react';
 import Booking from './Booking';
 import RoomDate from './RoomDate';
+import { formatPrice } from '../helpers/BookingHelper'
 
 /**
  * Render a single room, i.e. single row in a table
@@ -24,16 +25,16 @@ function Room(props) {
 
         if(bookinksTodayJsx.length === 0) bookinksTodayJsx = <div style={{
             borderTop: '1px solid #B2BBC9',
-            borderLeft: '1px solid #B2BBC9',
+            borderRight: '1px solid #B2BBC9',
             borderBottom: '1px solid #B2BBC9',
             height: '100%',
             fontSize: '14px',
             fontWeight: '600',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center'
+            justifyContent: 'center',
         }}>
-            <div>$100.000</div>
+            <div>{formatPrice('100000')}</div>
             <div style={{
                 fontSize: '12px',
                 color: '#88909C',
@@ -45,11 +46,10 @@ function Room(props) {
     })
 
     return (<tr key={props.room.id}>
-        <td>
+        <td style={{backgroundColor: 'white'}}>
             <div style={{
                 backgroundColor: 'white',
                 border: '1px solid #B2BBC9',
-                borderRight: '0px',
                 borderRadius: '12px 0 0 12px',
                 height: '100%',
                 padding: '15px'

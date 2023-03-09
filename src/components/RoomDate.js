@@ -30,6 +30,8 @@ function RoomDate(props) {
         context.actionOpenPopup({room_id:props.room.id, from_date:props.day, to_date:props.day});
     }
 
+    //TODO: cellWidth does nothing
+
     return (
         <td ref={drop} key={props.day.getTime()} style={{ "width": (props.cellWidth + "px") }} onClick={clickHandler}>
             {props.children}

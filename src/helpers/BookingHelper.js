@@ -25,6 +25,21 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 }
 
+
+/**
+ * Format in yyyy-mm-dd format
+ * @param {*} price 
+ */
+export const formatPrice = (price) => {
+    const newPrice = new window.Intl.NumberFormat('es-CO', {
+		style: 'currency',
+		currency: 'COP',
+		maximumFractionDigits: 0
+	}).format(price)
+
+	return newPrice
+}
+
 const numberOfDaysBetweenDates = (date1, date2) => {
     return Math.floor(Math.abs(( date1.getTime() - date2.getTime() ) / (60 * 60 * 24 * 1000))) + 1;
 }
@@ -127,5 +142,6 @@ export default {
     canExistBooking: canExistBooking,
     moveBooking: moveBooking,
     guid: guid,
-    formatDate: formatDate
+    formatDate: formatDate,
+    formatPrice
 }
